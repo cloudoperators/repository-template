@@ -1,0 +1,26 @@
+name: Cut Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  cut-release:
+    uses: cloudoperators/common/.github/workflows/shared-release.yaml@main
+    permissions:
+      contents: write
+    with:
+      bump: ${{ inputs.bump }}
+      # Uncomment and set the path(s) relevant to your repo:
+      # makefile-path: Makefile
+      # chart-path: charts/myapp/Chart.yaml
+    secrets:
+      release-token: ${{ secrets.RELEASE_TOKEN }}
