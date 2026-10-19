@@ -1,0 +1,16 @@
+name: Release Helm Chart
+
+on:
+  push:
+    tags:
+      - "helm-chart-*.*.*"
+
+jobs:
+  helm-release:
+    uses: cloudoperators/common/.github/workflows/shared-helm-release.yaml@4a36aa4e13e96d49b6d17f29da005f6cdb42b15b
+    permissions:
+      contents: read
+      packages: write
+    with:
+      chart-dir: charts/REPLACE_WITH_CHART_DIR
+      chart-name: REPLACE_WITH_CHART_NAME
